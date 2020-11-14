@@ -3,12 +3,11 @@ import { base } from './base';
 
 const themeColors = {
   light: '#fff',
-  dark: '#111',
-  link: '#E1CE7A',
-  primary: '#8BB6A5',
-  secondary: '#3676EC',
-  tertiary: '#B8C0D5',
-  // accent: '#F0E6BC',
+  dark: '#0B132B',
+  link: '#6FFFE9',
+  primary: '#5BC0BE',
+  secondary: '#3A506B',
+  tertiary: '#1C2541',
   accent: '#DA95A3',
   grey: '#e5e5e5',
 };

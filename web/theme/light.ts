@@ -3,7 +3,7 @@ import { base } from './base';
 
 const themeColors = {
   light: '#fff',
-  dark: '#333',
+  dark: '#000',
   link: '#6FFFE9',
   primary: '#5BC0BE',
   secondary: '#3A506B',
