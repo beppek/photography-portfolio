@@ -1,9 +1,9 @@
 {
   "workbench.colorCustomizations": {
-    "titleBar.activeForeground": "#dbdbdb",
-    "titleBar.inactiveForeground": "#d3d3d3",
-    "titleBar.activeBackground": "#2355c0",
-    "titleBar.inactiveBackground": "#1a3692"
+    "titleBar.activeForeground": "#6FFFE9",
+    "titleBar.inactiveForeground": "#5BC0BE",
+    "titleBar.activeBackground": "#1C2541",
+    "titleBar.inactiveBackground": "#3A506B"
   },
   "prettier.configPath": ".prettierrc",
   "prettier.singleQuote": true,
