@@ -74,7 +74,7 @@ async function getLayout(client) {
 
 module.exports = function cms() {
   const options = {
-    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+    dataset: 'production',
     projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
     useCdn: true,
   };

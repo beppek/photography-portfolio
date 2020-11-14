@@ -2,7 +2,7 @@ import sanityClient, { SanityClient } from '@sanity/client';
 import sanityImage from '@sanity/image-url';
 import groq from 'groq';
 
-import { config } from '../../config';
+import { config } from 'config';
 import {
   CMSContent,
   CMSContentType,
@@ -35,115 +35,18 @@ const listenerClient = (token: string) =>
     ignoreBrowserTokenWarning: true,
   });
 
-const pageFields = `
-  title,
-  'id': _id,
-  'sections': sections[]{
-    'key': _key,
-    'type': _type,
-    'heading': heading{
-      'type': _type,
-      headingType,
-      text,
-    },
-    background,
-    textColor,
-    anchor,
-    'components': component[]{
-      'key': _key,
-      'type': _type,
-      'columns': columns[]{
-        'key': _key,
-        'type': _type,
-        'content': content[]{
-          'asset': asset->{...},
-          ...,
-        },
-        ...,
-      },
-      'background': background{
-        'alt': image.alt,
-        'imageUrl': image.asset->url,
-      },
-      ...,
-    },
-  },
-`;
-
-const postFields = `
-  'id': _id,
-  name,
-  title,
-  date,
-  excerpt,
-  'slug': slug.current,
-  'coverImage': coverImage.asset->url,
-  'author': author->{name, 'picture': picture.asset->url},
-  'page': page->{${pageFields}}
-`;
-
-const routeFields = `
-  'id': _id,
-  'slug': slug.current,
-  'page': page->{${pageFields}}
-`;
-
-const staticRouteFields = `
-  'id': _id,
-  'page': page->{${pageFields}}
-`;
-
-const navFields = `
-items[]{
-  text,
-  _key,
-  'kind': navItemAction.kind,
-  style,
-  'icon': icon{
-    alt,
-    asset->{...}
-  },
-  'function': navItemAction.triggerFunction,
-  'link': navItemAction{
-    href,
-    anchorLink,
-    'slug': pageRoute->slug.current,
-    'id': pageRoute->_id
-  }
-}
-`;
-
-const globalLayoutSettingsFields = `
+const photographyFields = `
   ...,
-  'id': _id,
-  'footer': footer{
+  image{
     ...,
-  	'logo': logo{
-			...,
-  		'asset': asset->{...}
-		}
-	},
-	'header': header{
-  	...,
-    'primaryNav': primaryNav->{
-    	${navFields}
-  	},
-    'secondaryNav': secondaryNav->{
-    	${navFields}
-  	},
-  	'logo': logo{
-			...,
-  		'asset': asset->{...}
-		}
-	}
+    asset->{
+      ...
+    }
+  }
 `;
 
 const contentFields = {
-  [CMSContentType.post]: postFields,
-  [CMSContentType.page]: pageFields,
-  [CMSContentType.route]: routeFields,
-  [CMSContentType.staticRoute]: staticRouteFields,
-  [CMSContentType.globalSiteLayout]: globalLayoutSettingsFields,
+  [CMSContentType.photography]: photographyFields,
 };
 
 const getClient = (preview: boolean, token?: string) =>
@@ -288,11 +191,8 @@ export function cmsFactory({
     getSecret,
     getToken: () => process.env.SANITY_API_TOKEN,
     getSiteLayout: () =>
-      getById(
-        CMSContentType.globalSiteLayout,
-        CMSContentType.globalSiteLayout,
-        client,
-      ),
+      getById(CMSContentType.photography, CMSContentType.photography, client),
     getUrlForImage: (source) => sanityImage(client).image(source),
+    getAllOfType: (type) => getAllByType(type, client),
   };
 }

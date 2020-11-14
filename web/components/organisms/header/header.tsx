@@ -27,7 +27,7 @@ export type NavLink = {
 export type HeaderProps = {
   title: string;
   logo?: Image;
-  primaryNav: NavLink[];
+  primaryNav?: NavLink[];
   secondaryNav?: NavLink[];
   actions: { [key: string]: () => void };
 };
@@ -40,7 +40,7 @@ const StyledHeader = styled.header`
   align-items: flex-start;
   width: 100%;
   z-index: 99;
-  position: ${(props) => props.theme.header.position || 'fixed'};
+  position: ${(props) => props.theme.header.position || 'relative'};
   margin: 0;
   color: ${(props) => props.theme.header.foreground};
   background-color: ${(props) => props.theme.header.background};
@@ -248,11 +248,14 @@ export function Header({
     <StyledHeader>
       <InternalLink href="/">
         {logo ? (
-          <HeaderLogo
-            extension={logo.extension}
-            src={logo.src}
-            alt={logo.alt}
-          />
+          <>
+            <HeaderLogo
+              extension={logo.extension}
+              src={logo.src}
+              alt={logo.alt}
+            />
+            <Heading>{title}</Heading>
+          </>
         ) : (
           <Heading>{title}</Heading>
         )}
@@ -262,7 +265,7 @@ export function Header({
       </HeaderNavigationToggle>
       <HeaderNavigation open={navOpen}>
         <PrimaryNavigation>
-          {primaryNav.map((link) => (
+          {primaryNav?.map((link) => (
             <LinkNavItem onClick={closeNav} key={link.href} link={link} />
           ))}
         </PrimaryNavigation>

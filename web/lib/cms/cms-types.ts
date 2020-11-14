@@ -15,11 +15,7 @@ export type CMSGetParam =
     };
 
 export enum CMSContentType {
-  post = 'post',
-  page = 'page',
-  route = 'route',
-  staticRoute = 'staticRoute',
-  globalSiteLayout = 'globalSiteLayout',
+  photography = 'photography',
 }
 
 export type CMSContentBase = {
@@ -182,6 +178,7 @@ export type CMSInterfaceMethods = {
   getToken: () => string;
   getSiteLayout: () => Promise<CMSContent>;
   getUrlForImage: (source: SanityImageSource) => ImageUrlBuilder;
+  getAllOfType: (type: CMSContentType) => Promise<CMSContent[]>;
 };
 
 export enum PageSections {

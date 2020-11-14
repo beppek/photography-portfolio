@@ -12,14 +12,6 @@ const SVGLogo = styled(SVG)`
   &:hover {
     cursor: pointer;
   }
-
-  fill: ${(props) => props.theme.header.logoColor}!important;
-  > * {
-    fill: ${(props) => props.theme.header.logoColor}!important;
-  }
-  > * > * {
-    fill: ${(props) => props.theme.header.logoColor}!important;
-  }
 `;
 
 const ImageLogo = styled.img`

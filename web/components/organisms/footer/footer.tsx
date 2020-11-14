@@ -4,7 +4,7 @@ import { InternalLink } from '../../atoms/link/internal-link';
 import { ExternalLink } from '../../atoms/link/external-link';
 
 type Props = {
-  links: {
+  links?: {
     social?: {
       url: string;
       label: string;
@@ -36,7 +36,7 @@ export function Footer({ links, copyright }: Props): ReactElement {
   return (
     <StyledFooter>
       <div>
-        {links.nav?.map((link) =>
+        {links?.nav?.map((link) =>
           link.type === 'internal' ? (
             <InternalLink key={link.label} href={link.url}>
               {link.label}
@@ -49,7 +49,7 @@ export function Footer({ links, copyright }: Props): ReactElement {
         )}
       </div>
       <div>
-        {links.social?.map((link) => (
+        {links?.social?.map((link) => (
           <a
             key={link.label}
             href={link.url}
@@ -61,8 +61,7 @@ export function Footer({ links, copyright }: Props): ReactElement {
         ))}
       </div>
       <div>
-        &copy; {new Date().getFullYear()}
-        {' '}
+        &copy; {new Date().getFullYear()}{' '}
         {copyright.url ? (
           <ExternalLink href={copyright.url}>{copyright.label}</ExternalLink>
         ) : (

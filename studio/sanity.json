@@ -1,0 +1,59 @@
+{
+  "root": true,
+  "api": {
+    "projectId": "az3p2c3q",
+    "dataset": "production"
+  },
+  "project": {
+    "name": "Photography Portfolio"
+  },
+  "plugins": [
+    "@sanity/base",
+    "@sanity/components",
+    "@sanity/default-layout",
+    "@sanity/default-login",
+    "@sanity/desk-tool",
+    "@sanity/vision",
+    "asset-source-thispersondoesnotexist",
+    "content-model-graph",
+    "tabs",
+    "seo-tools",
+    "asset-source-unsplash",
+    "@sanity/color-input",
+    "@sanity/production-preview",
+    "@sanity/code-input"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "@sanity/vision"
+      ]
+    }
+  },
+  "parts": [
+    {
+      "name": "part:@sanity/base/schema",
+      "path": "./schemas/schema.ts"
+    },
+    {
+      "implements": "part:@sanity/production-preview/resolve-production-url",
+      "path": "./resolveProductionUrl.ts"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./deskStructure.ts"
+    },
+    {
+      "implements": "part:@sanity/base/document-actions/resolver",
+      "path": "resolveDocumentActions.ts"
+    },
+    {
+      "name": "part:@sanity/base/new-document-structure",
+      "path": "./newDocumentStructure.ts"
+    },
+    {
+      "implements": "part:@sanity/base/brand-logo",
+      "path": "./parts/logo.tsx"
+    }
+  ]
+}

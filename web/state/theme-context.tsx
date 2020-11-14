@@ -47,7 +47,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const initialState: State = {
-  theme: Themes.dark,
+  theme: Themes.light,
 };
 
 const actions: Record<Actions, ActionFunction> = {

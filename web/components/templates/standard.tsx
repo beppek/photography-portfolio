@@ -1,16 +1,9 @@
 import { ReactElement } from 'react';
 import styled from 'styled-components';
-import { useTheme } from '@hooks/use-theme';
-import {
-  SiteLayout,
-  NavigationItem,
-  NavItemKind,
-  NavItemStyle,
-} from '../../lib/cms/cms-types';
-import { Header, NavLink } from '../organisms/header/header';
-import { staticPageUrlBuilder } from '../../utils/urlBuilder';
-import { useThemeSwitcher } from '../../hooks/use-theme-switcher';
-import { Footer } from '../organisms/footer/footer';
+import { config } from 'config';
+import { Header } from '@components/organisms/header/header';
+import { useThemeSwitcher } from '@hooks/use-theme-switcher';
+import { Footer } from '@components/organisms/footer/footer';
 
 const Wrapper = styled.div`
   min-height: 100vh;
@@ -22,34 +15,10 @@ const Wrapper = styled.div`
 `;
 
 type Props = {
-  layout: SiteLayout;
   children: ReactElement | ReactElement[] | string;
 };
 
-function buildNavLinks(items: NavigationItem[]): NavLink[] {
-  return items?.map((item) => ({
-    type: item.link.href ? 'external' : 'internal',
-    kind:
-      item.kind === NavItemKind.button ? NavItemKind.button : NavItemKind.link,
-    ...(item.icon && {
-      icon: {
-        alt: item.icon.alt,
-        src: item.icon.asset.url,
-      },
-    }),
-    style: item.style || NavItemStyle.text,
-    href:
-      item.link.href ||
-      item.link.slug ||
-      item.link.anchorLink ||
-      staticPageUrlBuilder(item.link.id),
-    label: item.text,
-    function: item.function,
-  }));
-}
-
-export function StandardLayout({ children, layout }: Props): ReactElement {
-  const { themeName } = useTheme();
+export function StandardLayout({ children }: Props): ReactElement {
   const {
     actions: { toggleTheme },
   } = useThemeSwitcher();
@@ -59,26 +28,15 @@ export function StandardLayout({ children, layout }: Props): ReactElement {
         actions={{
           toggleTheme,
         }}
-        title={layout.header.title}
+        title={config.site.title}
         logo={{
-          alt: layout.header.logo[themeName.toLowerCase()].alt,
-          src: layout.header.logo[themeName.toLowerCase()].asset.url,
-          extension:
-            layout.header.logo[themeName.toLowerCase()].asset.extension,
+          alt: 'Photography portfolio',
+          src: '/logo.svg',
+          extension: 'svg',
         }}
-        primaryNav={buildNavLinks(layout.header.primaryNav.items)}
-        secondaryNav={
-          layout.header.secondaryNav?.items &&
-          buildNavLinks(layout.header.secondaryNav.items)
-        }
       />
       {children}
-      <Footer
-        copyright={{ label: layout.footer.copyright }}
-        links={{
-          social: [],
-        }}
-      />
+      <Footer copyright={{ label: 'Beppe Karlsson' }} />
     </Wrapper>
   );
 }
